@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <style>
+        div.is_hidden {
+            display: none;
+        }
+        
+        input[type=checkbox]:checked + .is_hidden {
+            display: block;
+            transition-duration: 1s;
+        }
+
+        * {
+            font-size: 16px;
+            font-family: Consolas, sans-serif;
+        }
+
+        fieldset {
+            width: 400px;
+        }
+
+        legend {
+            background-color: #9cf;
+            color: #000;
+            padding: 1px 10px;
+            margin: 0;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 5px;
+            border: 3px solid #000;
+            font-weight: bolder;
+        }
+        
+        #box {
+        	width: 400px;
+        	height: 350px;
+        	border: 2px solid #00bfff;
+        	font-size: 16px;
+        	font-weight: bold;
+        	text-align: center;
+        }
+        
+        #table {
+        	border-collapse: collapse;
+        	width: 400px;
+        }
+        
+        #table th {
+        	border: 1px solid black;
+        	background-color: #efefef;
+        	padding: 4px;
+        }
+        
+        #table td {
+        	border: 1px solid black;
+        }
+        
+        #table thead>tr:nth-child(1)>td:last-child {
+        	border: none;
+        	text-align: right;
+        }
+        
+        .empty {
+        	text-align: center;
+        	height: 50px;
+        	line-height: 50px;
+        }
+                
+        #art_3 thead>tr:nth-child(1)>td:first-child div{
+        	position: relative;
+        	border: 1px solid blue;
+        	height: inherit;
+        }
+        #art_3 thead>tr:nth-child(1)>td:first-child div select {
+        	position: absolute;
+        	height: inherit;
+        	bottom: 0;
+        	padding: 0;
+        }
+        
+        .sep_red {
+        	color: red;
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <section>
+        <article id="art_1">
+            <h1># 1. ajax</h1>
+            <label for="toggleBox">show</label>
+            <input type="checkbox" id="toggleBox" />
+            <div class="is_hidden">
+                <fieldset>
+                    <legend>- ex 1.</legend>
+                    <input type="text"  id="txt" />
+                    <input type="button" value="Call" id="btn" />
+                    
+                    <div id="box">
+                    	JSP 파일을 표현할 곳 
+                    </div>
+                </fieldset>
+                <br />
+                
+            </div>
+        </article>
+        <br />
+        
+        <article id="art_2">
+            <h1># 2. ajax loop </h1>
+            <label for="toggleBox">show</label>
+            <input type="checkbox" id="toggleBox" />
+            <div class="ishidden">
+                <fieldset>
+                    <legend>- loop.</legend>
+                    <table id="table">
+                    	<colgroup>
+                    		<col width="80px">
+                    		<col width="80px">
+                    		<col width="*">
+                    	</colgroup>
+                    	<thead>
+                    		<tr>
+                    			<td colspan="3">
+                    				<button type="button" id="btn">Click</button>
+                    			</td>
+                    		</tr>
+                    		<tr>
+                    			<th>col 1</th>
+                    			<th>col 2</th>
+                    			<th>col 3</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody>
+                    		<tr>
+                    			<td colspan="3" class="empty" >
+                    				표현할 데이터가 없습니다.
+                    			</td>
+                    		</tr>
+                    	</tbody>
+                    </table>
+                </fieldset>
+            </div>
+        </article>
+        <br />
+        
+        <article id="art_3">
+            <h1># 3. ajax loop ex</h1>
+            <label for="toggleBox">show</label>
+            <input type="checkbox" id="toggleBox" />
+            <div class="ishidden">
+                <fieldset>
+                    <legend>- loop ex.</legend>
+                    <table id="table">
+                    	<colgroup>
+                    		<col width="80px">
+                    		<col width="80px">
+                    		<col width="80px">
+                    		<col width="200px">
+                    	</colgroup>
+                    	<thead>
+                    		<tr>
+                    			<td colspan="2">
+	                    			<div>
+	                    				<select name="position" id="position">
+	                    					<option value="">-- Choose position --</option>
+	                    					<option value="admin">Admin</option>
+	                    					<option value="general">General</option>
+	                    				</select>
+	                    			</div>
+                    			</td>
+                    			<td colspan="2">
+                    				<label for="sep">구분 :
+                    					<select name="sep" id="sep" >
+	                    					<option value="admin">Admin</option>
+	                    					<option value="general">General</option>
+	                    				</select>
+                    				</label>
+                    				<br />
+                    				<label for="name">이름 :
+	                    				<input type="text" id="name" name="name" size="10"/> 
+                    				</label>
+                    				<br />
+                    				<label for="contact">연락처 :
+	                    				<input type="text" id="contact" name="contact"  size="10"/> 
+                    				</label>
+                    				<br />
+                    				<button type="button" id="btn">Add</button>
+                    			</td>
+                    		</tr>
+                    		<tr>
+                    			<th>No</th>
+                    			<th>Position</th>
+                    			<th>Name</th>
+                    			<th>Contact</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody>
+                    		
+                    	</tbody>
+                    	
+                    	
+                    </table>
+                </fieldset>
+                <br />
+                
+            </div>
+        </article>
+        <br />
+        
+    </section>
+
+    <!-- jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" 
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" 
+        crossorigin="anonymous"></script>
+
+    <script>
+    	$( function() {
+    		// call button 을 클릭했을때, 
+    		// ajax.jsp 즉, asynchronize request 한다.
+    		$( 'article[id=art_1] input[id=btn]' ).bind( 'click', function() {
+    			// jQuery ajax 를 통하여 ajax.jsp 를 호출한다.
+    			
+    			let txt = $( "#txt" ).val();
+    			let param ="v1=" + encodeURIComponent( txt ) + "&v2=" + encodeURIComponent( txt );
+    			$.ajax({
+    				url: "ajax.jsp",
+    				data: param
+    			}).done( function( data ) {
+    				// ajax.jsp 와 성공적으로 통신했을때,
+    				// 실행하는 영역
+    				// return value 는 data 가 받는다.
+    				
+    				// alert( data );
+    				$( "#box" ).text( data );
+    			});
+    		} );
+    		
+    		$( 'article[id=art_2] button[id=btn]' ).bind( 'click', function() {
+    			
+    			$.ajax({
+    				url: "ajax_loop.jsp"
+    			}).done( function( data ) {
+    				
+    				$( "article[id=art_2] tbody" ).html( data );
+    			});
+    		} );
+    		
+    		$( 'article[id=art_3] button[id=btn]' ).bind( 'click', function() {
+    			
+    			let no = $('article[id=art_3] tbody tr').length;    			
+    			let sep = $('#sep').val();
+    			// below code value 0, 1
+    			// let sep = $('#sep option').index( $( '#sep option:selected' ) );
+    			let name = $('#name').val();
+    			let contact = $('#contact').val();
+    			let param = "no=" + encodeURIComponent( no+1 ) +
+    						"&sep=" + encodeURIComponent( sep ) + 
+    						"&name=" + encodeURIComponent( name ) +
+    						"&contact=" + encodeURIComponent( contact );
+    			
+    			$.ajax({
+    				url: "ajax_loop_ex.jsp",
+    				data: param
+    			}).done( function( data ) {
+    				
+    				$( "article[id=art_3] tbody" ).append( data );
+    			});
+    		} );
+    		
+    		$( 'article[id=art_3] #position' ).bind( 'change', function() {
+    			let select_val = $('article[id=art_3] #position' ).val();
+    			// alert( select_val );
+    			let rows = $('article[id=art_3] tbody tr');
+    			
+    			if( rows == 0 ) return;
+    			
+    			let select_rows = new Array();
+    			rows.each( function(){
+    				var cells = $(this).children();
+    				console.log( cells.eq(1).text() );
+    				
+    			});
+    			
+    			
+    			
+    		});
+    	} );
+    </script>
+
+    </body>
+</html>
+

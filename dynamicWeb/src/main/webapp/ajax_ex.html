@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <style>
+        div.is_hidden {
+            display: none;
+        }
+        
+        input[type=checkbox]:checked + .is_hidden {
+            display: block;
+            transition-duration: 1s;
+        }
+
+        * {
+            font-size: 16px;
+            font-family: Consolas, sans-serif;
+        }
+
+        fieldset {
+            width: 400px;
+        }
+
+        legend {
+            background-color: #9cf;
+            color: #000;
+            padding: 1px 10px;
+            margin: 0;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 5px;
+            border: 3px solid #000;
+            font-weight: bolder;
+        }
+        
+        #box {
+        	width: 300px;
+        	height: 150px;
+        	border: 1px solid black;
+        	text-align: center;
+        	/* line-height: 20px; */
+        	font-size: 22px;
+        	font-weight: bold;
+        }
+        
+        #art_2 table {
+        	border-collapse: collapse;
+        	width: 450px;
+        }
+        
+        #art_2 table>caption {
+        	text-indent: -9999px;
+        	height: 0;
+        }
+        
+        #art_2 table>thead th, #art_2 table>tbody td {
+        	border: 1px solid black;
+        	padding: 4px 5px 4px; /* 위 우,좌 아래*/
+        }
+        
+        #art_2 table>thead>tr:nth-child(1)>td {
+        	text-align: right;
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <section>
+        <article id="art_1">
+            <h1># 1. ajax json</h1>
+            <label for="toggleBox">show</label>
+            <input type="checkbox" id="toggleBox" />
+            <div class="is_hidden">
+                <fieldset>
+                    <legend>- Usage Asynchronous Communication.</legend>
+                    <input type="button" value="Ajax 통신" id="btn" />
+                    
+                    <div id="box">
+                    	JSP 파일을 표현할 곳 
+                    </div>
+                </fieldset>
+                <br />
+                
+            </div>
+        </article>
+        <br />
+        
+        <article id="art_2">
+            <h1># 2. ajax array json</h1>
+            <label for="toggleBox">show</label>
+            <input type="checkbox" id="toggleBox" />
+            <div class="ishidden">
+                <fieldset>
+                    <legend>- Usage Asynchronous Communication 2.</legend>
+                    <input type="button" value="Ajax 통신" id="btn" />
+                    <table>
+                    	<thead>
+                    		<tr>
+                    			<th>No</th>
+                    			<th>Name</th>
+                    			<th>Email</th>
+                    			<th>Phone</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody></tbody>
+                    </table>
+                    
+                </fieldset>
+                <br />
+                
+            </div>
+        </article>
+        <br />
+        
+    </section>
+
+    <!-- jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" 
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" 
+        crossorigin="anonymous"></script>
+
+    <script>
+    	// with json
+    	$(function() {
+    		$( "#art_1 #btn" ).click( function() {
+    			$.ajax( {
+    				
+   					url: "ajax_ex.jsp",
+    				type: "post",
+    				dataType: "json"
+    				
+   				} ).done( function( res ){
+					console.log( res );
+					console.log( res.phone );
+					$( "#art_1 #box" ).html( res.name + "<br/>" + res.email + "<br/>" + res.phone );
+					
+				}).fail( function( err ) {
+					console.log( err );
+					
+				});
+    		});
+    	});
+    	
+    	// with json array
+    	$(function() {
+    		$( "#art_2 #btn" ).click( function() {
+    			$.ajax( {
+    				
+   					url: "ajax_ex2.jsp",
+    				type: "post",
+    				dataType: "json"
+    				
+   				} ).done( function( res ){
+   					// console.log( res.length );
+   					
+   					for( var idx = 0; idx < res.length; idx++ ) {
+   	   					$( "#art_2 tbody" ).append( $tr = $( "<tr></tr>" ) );
+   	   					
+   	   					$tr.append( $td_no = $( "<td>/td>" ) );
+   	   					$tr.append( $td_name = $( "<td></td>" ) );
+   	   					$tr.append( $td_email = $( "<td></td>" ) );
+   	   					$tr.append( $td_phone = $( "<td></td>" ) );
+   	   					
+   	   					$td_no.text( idx+1 );
+   	   					$td_name.text( res[ idx ].name );
+   	   					$td_email.text( res[ idx ].email );
+   	   					$td_phone.text( res[ idx ].phone );
+   	   					
+   					}
+					
+				}).fail( function( err ) {
+					console.log( err );
+					
+				});
+    		});
+    	});
+    </script>
+
+    </body>
+</html>
+

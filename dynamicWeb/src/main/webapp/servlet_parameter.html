@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <style>
+        div.is_hidden {
+            display: none;
+        }
+        
+        input[type=checkbox]:checked + .is_hidden {
+            display: block;
+            transition-duration: 1s;
+        }
+
+        * {
+            font-size: 16px;
+            font-family: Consolas, sans-serif;
+        }
+
+        fieldset {
+            width: 400px;
+        }
+
+        legend {
+            background-color: #9cf;
+            color: #000;
+            padding: 1px 10px;
+            margin: 0;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 5px;
+            border: 3px solid #000;
+            font-weight: bolder;
+        }
+        
+        #box {
+        	width: 300px;
+        	height: 150px;
+        	border: 1px solid black;
+        	text-align: center;
+        	/* line-height: 20px; */
+        	font-size: 22px;
+        	font-weight: bold;
+        }
+        
+        #art_2 table {
+        	border-collapse: collapse;
+        	width: 450px;
+        }
+        
+        table>caption {
+        	text-indent: -9999px;
+        	height: 0;
+        }
+        
+        #art_2 table>thead th, #art_2 table>tbody td {
+        	border: 1px solid black;
+        	padding: 4px 5px 4px; /* 위 우,좌 아래*/
+        }
+        
+        #art_2 table>thead>tr:nth-child(1)>td {
+        	text-align: right;
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <section>
+        <article id="art_1">
+            <h1># 1. Servlet Basic</h1>
+            <label for="toggleBox">show</label>
+            <input type="checkbox" id="toggleBox" />
+            <div class="ishidden">
+                <fieldset id="servlet_param" >
+                    <legend>- Servlet parameter.</legend>
+                    <form action="Basic02" method="post" id="login_frm" >
+	                    <table>
+	                    	<colgroup>
+	                    		<col width="50px" />
+	                    		<col width="*" />
+	                    	</colgroup>
+	                    	<tbody>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="u_id" > ID : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="text" id="u_id" name="id" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="u_pw" > PW : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="password" id="u_pw" name="pw" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td colspan="2">
+	                    				<button type="button" id="login_btn" name="login_btn" > Log-In</button> 
+	                    			</td>
+	                    		</tr>
+	                    	</tbody>
+	                    </table>
+                    </form>
+                </fieldset>
+                <br />
+                
+                <fieldset id="servlet_params" >
+                    <legend>- Servlet parameters ( array ).</legend>
+                    <form action="Basic03_params" method="post" id="login_frm" >
+	                    <table>
+	                    	<colgroup>
+	                    		<col width="70px" />
+	                    		<col width="*" />
+	                    	</colgroup>
+	                    	<caption>Sign up Table</caption>
+	                    	
+	                    	<tbody>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="u_id" > ID : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="text" id="u_id" name="id" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="u_pw" > PW : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="password" id="u_pw" name="pw" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="u_name" > Name : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="text" id="u_name" name="name" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="u_hobby" > Hobby : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="checkbox" id="u_hobby" name="hobby"  value="Music" />Music
+	                    				<input type="checkbox" id="u_hobby" name="hobby"  value="Movie" />Movie
+	                    				<input type="checkbox" id="u_hobby" name="hobby"  value="Sports" />Sports
+	                    				<input type="checkbox" id="u_hobby" name="hobby"  value="Game" />Game
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td colspan="2">
+	                    				<button type="button" id="signup_btn" name="signup_btn" >Sign_Up</button> 
+	                    			</td>
+	                    		</tr>
+	                    	</tbody>
+	                    </table>
+                    </form>
+                </fieldset>
+                <br />
+                
+                <fieldset id="servlet_params_ex1" >
+                    <legend>- Servlet parameters ex 1( array ).</legend>
+                    <form action="Basic03_params_ex1" method="post" id="add_frm" >
+	                    <table>
+	                    	<colgroup>
+	                    		<col width="90px" />
+	                    		<col width="*" />
+	                    	</colgroup>
+	                    	<caption>Sign up Table</caption>
+	                    	<tbody>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="fname1" > Friend 1 : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="text" id="fname1" name="fname" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="fname2" > Friend 2 : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="text" id="fname2" name="fname" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="fname3" > Friend 3 : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="text" id="fname3" name="fname" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="local" > local : </label>
+	                    			</td>
+	                    			<td>
+	                    				<select name="local" id="local" >
+	                    					<option value="서울">서울</option>
+	                    					<option value="인천">인천</option>
+	                    					<option value="세종">세종</option>
+	                    				</select>
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td colspan="2">
+	                    				<button type="button" id="add_btn" name="add_btn" >Add_friends</button> 
+	                    			</td>
+	                    		</tr>
+	                    	</tbody>
+	                    </table>
+                    </form>
+                </fieldset>
+                <br />
+                
+                <fieldset id="servlet_params_asynch" >
+                    <legend>- Servlet parameters async.</legend>
+                    <form action="Basic03_params_async" method="post" id="valid_frm" >
+	                    <table>
+	                    	<colgroup>
+	                    		<col width="110px" />
+	                    		<col width="*" />
+	                    	</colgroup>
+	                    	<caption>Sign up Table</caption>
+	                    		<tbody>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="u_name" > Name : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="text" id="u_name" name="name" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="b_date" > Birth : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="date" id="b_date" name="b_date" 
+	                    					   value="2022-09-13" max="2022-09-13"/>
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="b_date_2" > Birth : jQuery UI </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="text" id="b_date_2" name="b_date_2" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td colspan="2">
+	                    				<button type="button" id="valid_btn" name="valid_btn" >Check_age</button> 
+	                    			</td>
+	                    		</tr>
+	                    	</tbody>
+	                    </table>
+                    </form>
+                    <div id="result" title="result"></div>
+                </fieldset>
+                <br />
+                
+                <fieldset id="servlet_http_session" >
+                    <legend>- Servlet http_session.</legend>
+                    <form action="Basic04_http_session" method="post" id="valid_frm" >
+	                    <table>
+	                    	<colgroup>
+	                    		<col width="110px" />
+	                    		<col width="*" />
+	                    	</colgroup>
+	                    	<caption>Sign up Table</caption>
+                    		<tbody>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="u_id" > ID : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="text" id="u_id" name="id" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="u_pw" > PW : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="password" id="u_pw" name="pw" />
+	                    			</td>
+	                    		</tr>	                    				
+	                    		<tr>
+	                    			<td colspan="2">
+	                    				<button type="button" id="signup_btn" name="signup_btn" >Sign_Up</button> 
+	                    			</td>
+	                    		</tr>
+	                    	</tbody>
+	                    </table>
+                    </form>
+                    <div id="result" title="result"></div>
+                </fieldset>
+                <br />
+                
+                <fieldset id="servlet_http_session_vo" >
+                    <legend>- Servlet http_session vo.</legend>
+                    <form action="Basic04_http_session_vo" method="post" id="valid_frm" >
+	                    <table>
+	                    	<colgroup>
+	                    		<col width="110px" />
+	                    		<col width="*" />
+	                    	</colgroup>
+	                    	<caption>Sign up Table</caption>
+                    		<tbody>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="u_id" > ID : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="text" id="u_id" name="id" />
+	                    			</td>
+	                    		</tr>
+	                    		<tr>
+	                    			<td>
+	                    				<label for="u_pw" > PW : </label>
+	                    			</td>
+	                    			<td>
+	                    				<input type="password" id="u_pw" name="pw" />
+	                    			</td>
+	                    		</tr>	                    				
+	                    		<tr>
+	                    			<td colspan="2">
+	                    				<button type="button" id="signup_btn" name="signup_btn" >Sign_Up</button> 
+	                    			</td>
+	                    		</tr>
+	                    	</tbody>
+	                    </table>
+                    </form>
+                    <div id="result" title="result"></div>
+                </fieldset>
+                <br />
+                
+            </div>
+        </article>
+        <br />
+        
+    </section>
+
+    <!-- jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" 
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" 
+        crossorigin="anonymous"></script>
+        
+    <!-- jquery UI CDN -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" 
+    	integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" 
+    	crossorigin="anonymous"></script>
+
+    <script>
+    	// Servlet parameter.
+    	$( function() {
+    		$( "#servlet_param #login_btn" ).bind( "click", function(){
+    			
+    			$id = $( "#servlet_param #u_id" );
+    			$pw = $( "#servlet_param #u_pw" );
+    			
+    			// check valid id
+    			if( $id.val().trim().length < 1 ) {
+    				alert( "Input ID" );
+    				$id.val( "" );
+    				$id.focus();
+    				return
+    			}
+    			
+    			// check valid pw
+    			if( $pw.val().trim().length < 1 ) {
+    				alert( "Input PW" );
+    				$pw.val( "" );
+    				$pw.focus();
+    				return
+    			}
+    			
+    			$( "#servlet_param #login_frm").submit();
+    		});
+    	});
+    	
+    	// Servlet parameters ( array ).
+    	$( function() {
+    		$( "#servlet_params #signup_btn" ).bind( "click", function(){
+    			
+    			$id = $( "#servlet_params #u_id" );
+    			$pw = $( "#servlet_params #u_pw" );
+    			$name = $( "#servlet_params #u_name" );
+    			
+    			// check valid id
+    			if( $id.val().trim().length < 1 ) {
+    				alert( "Input ID" );
+    				$id.val( "" );
+    				$id.focus();
+    				return
+    			}
+    			
+    			// check valid pw
+    			if( $pw.val().trim().length < 1 ) {
+    				alert( "Input PW" );
+    				$pw.val( "" );
+    				$pw.focus();
+    				return
+    			}
+    			
+    			// check valid pw
+    			if( $name.val().trim().length < 1 ) {
+    				alert( "Input Name" );
+    				$name.val( "" );
+    				$name.focus();
+    				return
+    			}
+    			
+    			$( "#servlet_params #login_frm").submit();
+    		});
+    	});
+    	
+    	// Servlet parameters ex 1( array ).
+    	$( function() {
+    		$( "#servlet_params_ex1 #add_btn" ).bind( "click", function(){
+    			
+    			$( "#servlet_params_ex1 #add_frm").submit();
+    		});
+    	});
+    	
+    	// Servlet parameters ex 1( array ).
+    	$( function() {
+    		
+    		// jQuery UI calendar
+    		$( "#b_date_2" ).datepicker({
+				dayNamesMin: ["일","월","화","수","목","금","토"],
+				showMonthAfterYear: true,
+				dateFormat: "yy",
+				defaultDate: new Date("1990/08/15"),
+				monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+				changeYear: true
+			});
+    		
+    		$( "#servlet_params_asynch #valid_btn" ).bind( "click", function(){
+    			
+    			//$( "#servlet_params_asynch #valid_frm").submit();
+    			
+    			var name = $( "#servlet_params_asynch #valid_frm #u_name").val();
+    			var b_date = $( "#servlet_params_asynch #valid_frm #b_date").val();
+    			
+    			let param = "name=" + encodeURIComponent(name)+"&b_date="+encodeURIComponent(b_date);
+    			
+    			$.ajax( {
+    				url : $( "#servlet_params_asynch #valid_frm" ).attr("action"),
+    				// context : $( "#servlet_params_asynch #valid_frm"),
+    				// url : "Basic03_params_async",
+    				data : param,
+    				type : "POST",
+    				dataType : "json"
+    				
+    			}).done( function( data ) {
+    				console.log( data.age );
+    				$( "#result" ).text( data.name + " 님은 " + ( ( data.age > 19 )? "성인입니다." : "미성년자입니다." ) );
+    				$( "#result" ).dialog();
+    				
+    			}).fail( function( err ) {
+				 	console.log( err );
+				});
+    		});
+    	});
+    	
+    	// - Servlet http_session.
+    	$( function() {
+    		$( "#servlet_http_session #signup_btn" ).bind( "click", function(){
+    			var id = $( "#servlet_http_session #u_id" ).val();
+    			var pw = $( "#servlet_http_session #u_pw" ).val();
+    			
+    			$( "#servlet_http_session #valid_frm" ).action = "ex1";
+    			$( "#servlet_http_session #valid_frm" ).submit();
+    		});
+    		
+    	});
+    	
+    	// - Servlet http_session.
+    	$( function() {
+    		$( "#servlet_http_session_vo #signup_btn" ).bind( "click", function(){
+    			var id = $( "#servlet_http_session_vo #u_id" ).val();
+    			var pw = $( "#servlet_http_session_vo #u_pw" ).val();
+    			
+    			$( "#servlet_http_session_vo #valid_frm" ).action = "ex1";
+    			$( "#servlet_http_session_vo #valid_frm" ).submit();
+    		});
+    		
+    	});
+    	
+    	
+    </script>
+
+    </body>
+</html>
+

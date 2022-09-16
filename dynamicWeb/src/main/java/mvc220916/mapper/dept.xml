@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dept">
+
+  <select id="all" resultType="mvc220916.vo.DeptVO" >
+    select dm.dept_no, d.dept_name, dm.emp_no, concat_ws( ' ', e.first_name, e.last_name ) AS name
+	from (
+			select * 
+			from `employees`.dept_manager
+			where to_date LIKE CONCAT( '9999', '%' )
+		) dm inner join `employees`.departments d on dm.dept_no = d.dept_no
+			 inner join `employees`.employees e on dm.emp_no = e.emp_no
+  </select>
+
+  <select id="searchByDeptName" resultType="mvc220916.vo.DeptVO" parameterType="String" >
+    select dm.dept_no, d.dept_name, dm.emp_no, concat_ws( ' ', e.first_name, e.last_name ) AS name
+	from (
+			select * 
+			from `employees`.dept_manager
+			where to_date LIKE CONCAT( '9999', '%' )
+		) dm inner join `employees`.departments d on dm.dept_no = d.dept_no
+			 inner join `employees`.employees e on dm.emp_no = e.emp_no
+	WHERE d.dept_name LIKE CONCAT( '%', #{keyword}, '%' )
+  </select>
+  
+</mapper>

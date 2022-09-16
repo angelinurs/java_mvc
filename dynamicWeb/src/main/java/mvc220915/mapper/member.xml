@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+<!-- 
+  <select id="findBykeyword" resultType="mvc220914.vo.EmpVO" >
+    select * from employees
+    <where>
+    	<if test="emp_no != null">
+    		emp_no=#{emp_no}
+    	</if>
+    	<if test="first_name != null">
+    		first_name LIKE CONCAT( '%', #{first_name}, '%' )
+    	</if>
+    	<if test="hire_date != null">
+    		hire_date LIKE CONCAT( '%', #{hire_date}, '%' )
+    	</if>
+    </where>
+  </select>
+ -->
+  <select id="findById" resultType="mvc220915.vo.MemberVO" parameterType="String">
+    select * from `employees`.`member_t`
+   	where m_id = #{id}
+  </select>
+  
+  <select id="findByIdAndPw" resultType="mvc220915.vo.MemberVO" parameterType="java.util.Map">
+    select * from `employees`.`member_t`
+   	where m_id = #{id} and m_pw = #{pw}
+  </select>
+</mapper>

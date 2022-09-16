@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	<style>
+        div.is_hidden {
+            display: none;
+        }
+        
+        input[type=checkbox]:checked + .is_hidden {
+            display: block;
+            transition-duration: 1s;
+        }
+
+        * {
+            font-size: 16px;
+            font-family: Consolas, sans-serif;
+        }
+
+        fieldset {
+            width: 400px;
+        }
+
+        legend {
+            background-color: #9cf;
+            color: #000;
+            padding: 1px 10px;
+            margin: 0;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 5px;
+            border: 3px solid #000;
+            font-weight: bolder;
+        }
+        
+        #box {
+        	width: 300px;
+        	height: 150px;
+        	border: 1px solid black;
+        	text-align: center;
+        	/* line-height: 20px; */
+        	font-size: 22px;
+        	font-weight: bold;
+        }
+        
+        #art_2 table {
+        	border-collapse: collapse;
+        	width: 450px;
+        }
+        
+        table>caption {
+        	text-indent: -9999px;
+        	height: 0;
+        }
+        
+        #art_2 table>thead th, #art_2 table>tbody td {
+        	border: 1px solid black;
+        	padding: 4px 5px 4px; /* 위 우,좌 아래*/
+        }
+        
+        #art_2 table>thead>tr:nth-child(1)>td {
+        	text-align: right;
+        }
+        
+        
+        .txtRed {
+        	color: #f00;
+        }
+        .txtBlue {
+        	color: #00f;
+        }
+    </style>
+    
+</head>
+<body>
+    <section>
+        <article id="art_1">
+            <h1># 1. ID check for asynchronous request and response </h1>
+            <label for="toggleBox">show</label>
+            <input type="checkbox" id="toggleBox" />
+            <div class="ishidden">
+                <fieldset id="field_1" >
+                    <legend>- ID check for asynchronous 1.</legend>
+                    <form action="" method="post">
+                    	<table>
+                    		<caption>Sign-Up table </caption>
+                    		<colgroup>
+                    			<col width="70px" />
+                    			<col width="*" />
+                    		</colgroup>
+                    		<tbody>
+                    			<tr>
+                    				<th>
+                    					<label for="u_id">ID :</label>
+                    				</th>
+                    				<th>
+                    					<input type="text" id="u_id" name="u_id" />
+                    					<button type="button" id="btn">Check</button>
+                    				</th>
+                    			</tr>
+                    			<tr>
+                    				<th>
+                    					<label for="u_pw">PW :</label>
+                    				</th>
+                    				<th>
+                    					<input type="password" id="u_pw" name="u_pw" />
+                    				</th>
+                    			</tr>
+                    			<tr>
+                    				<th>
+                    					<label for="u_name">Name :</label>
+                    				</th>
+                    				<th>
+                    					<input type="text" id="u_name" name="u_name" />
+                    				</th>
+                    			</tr>
+                    		</tbody>
+                    		
+                    	</table>
+                    
+	                
+	                    <button type="button" id="s_btn" >Search</button>
+                    </form>
+                    <div>
+                    <label>사용된 sql</label>
+                    					<pre style="font-size: 8">
+drop table `employees`.member_t;
+
+Create table `employees`.member_t (
+	m_id varchar(255) not null,
+    m_name varchar(255) not null,
+    m_phone varchar(255),
+    m_addr varchar(255)
+);
+
+insert into `employees`.member_t( m_id, m_name, m_phone, m_addr )
+values( "kiwi", "Alex", "010-7777-9999", "Korea" );
+
+insert into `employees`.member_t( m_id, m_name, m_phone, m_addr )
+values( "Apple", "Alice", "010-9999-7777", "UK" );
+
+insert into `employees`.member_t( m_id, m_name, m_phone, m_addr )
+values( "Melon", "Dorosi", "010-7799-9977", "JAPAN" );
+                    					
+                    					</pre>
+                    </div>
+                    
+                </fieldset>
+                <br />
+                
+                <fieldset id="field_2" >
+                    <legend>- ID check for asynchronous 2.</legend>
+                    <form action="" method="post">
+                    	<table>
+                    		<caption>Sign-Up table </caption>
+                    		<colgroup>
+                    			<col width="70px" />
+                    			<col width="*" />
+                    		</colgroup>
+                    		<tbody>
+                    			<tr>
+                    				<th>
+                    					<label for="u_id">ID :</label>
+                    				</th>
+                    				<td>
+                    					<input type="text" id="u_id" name="u_id" />
+                    					<span>
+                    					</span>
+                    				</td>
+                    			</tr>
+                    		</tbody>
+                    		
+                    	</table>
+                    
+	                
+	                    <button type="button" id="s_btn" >Search</button>
+                    </form>
+                    
+                </fieldset>
+                <br />
+                               
+            </div>
+        </article>
+        <br />
+        
+    </section>
+
+    <!-- jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" 
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" 
+        crossorigin="anonymous"></script>
+        
+    <!-- jquery UI CDN -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" 
+    	integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" 
+    	crossorigin="anonymous"></script>
+
+    <script>
+    
+    	// btn check
+    	$( function() {
+    		$( "#field_1 #btn" ).bind( "click", function(){
+    			let param = "u_id=" + encodeURIComponent( $( "#field_1 #u_id" ).val() );
+    			
+    			$.ajax({
+    				url: "Async_Check_Id",
+    				type: "POST",
+    				dataType: "json",
+    				data: param
+    			}).done( function( res ) {
+					console.log( res.msg );
+					console.log( res.color );
+					$( "#field_1 label[for=u_id]" ).css( "background-color", res.color );
+				}).fail( function( err ) {
+					console.log( err );
+				});
+    			
+    			
+    		} );
+    	});
+    	
+    	// auto check 
+    	$( function() {
+    		$( "#field_2 #u_id" ).bind( "keyup", function(){
+    			let text = $( "#field_2 #u_id" ).val();
+    			if( text.length > 3 ) {
+    				console.log( text );
+    				let param = "u_id=" + encodeURIComponent( text );
+    				
+    				$.ajax({
+    					url: "Async_Check_Id",
+    					type: "POST",
+    					data: param,
+    					dataType: "json"
+    					
+    				}).done( function( res ) {
+						console.log( res );
+						
+						$("#field_2 #u_id").next().text( (res.msg == 1 )? 'Duplication': 'allow' );
+						$("#field_2 #u_id").next().prop( 'class', (res.msg == 1 )? 'txtRed': 'txtBlue' );
+						
+					}).fail( function( err ) {
+						console.log( err );
+					});
+    				
+    			} else {
+    				$("#field_2 #u_id").next().text( '' );
+					$("#field_2 #u_id").next().removeClass();
+    			}
+    		});
+		});
+    	    	
+    </script>
+
+    </body>
+</html>
+

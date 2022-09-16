@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memo">
+
+  <select id="all" resultType="memo_220916.vo.MemoVO" >
+    select * from `employees`.memo_t
+	ORDER BY m_idx DESC
+  </select>
+  
+  <insert id="insert" parameterType="java.util.Map" >
+    insert into `employees`.`memo_t` ( `title`, `content`, `pw`, `writer`, `write_date` )
+	values ( #{title}, #{content}, #{pw}, #{author}, now() )
+  </insert>
+  
+</mapper>
