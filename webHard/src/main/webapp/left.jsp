@@ -52,6 +52,9 @@
 </head>
 <body>
 <%
+	int totalSize = 1024 * 1024 * 10;
+	int useSize = 0;
+
 	Object obj = session.getAttribute( "mvo" );
 	if( obj == null ) {
 %>
@@ -140,8 +143,20 @@
 	}	
 	
 	function exe() {
-		let m_id = $( "#s_id" ).val();
-		let m_pw = $( "#s_pw" ).val();
+		let m_id = $( "#s_id" ).val().trim();
+		let m_pw = $( "#s_pw" ).val().trim();
+		
+		if( m_id.length < 1 ) {
+			$( "#s_id" ).val( "" );
+			$( "#s_id" ).focus();
+			return;
+		}
+		
+		if( m_pw.length < 1 ) {
+			$( "#s_pw" ).val( "" );
+			$( "#s_pw" ).focus();
+			return;
+		}
 		
 		let param = "m_id=" + encodeURIComponent( m_id ) +
 					"&m_pw=" + encodeURIComponent( m_pw );
@@ -153,8 +168,10 @@
 			$( "#log_suc>p:first-child" ).text( m_id );
 			parent.location.reload(); 
 		});
-		
-		
+	}
+	
+	function myDisk() {
+		parent.right.location.href = "./disk/myDisk.jsp";
 	}
 	</script>
 </body>

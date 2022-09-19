@@ -8,6 +8,6 @@
 </head>
 <frameset cols="190,*" border="0">
 	<frame src="left.jsp" name="left"/>
-	<frame src="https://blog.naver.com/frogramo" name="right"/>
+	<frame src="https://www.nationalgeographic.com/animals" name="right"/>
 </frameset>
 </html>

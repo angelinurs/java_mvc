@@ -3,6 +3,9 @@
 
 <%
 	session.setAttribute( "mvo", null );
+
+	// or
+	// session.removeAttribute( "mvo" );
 	
-	response.sendRedirect("index.jsp");
+	response.sendRedirect("left.jsp");
 %>
