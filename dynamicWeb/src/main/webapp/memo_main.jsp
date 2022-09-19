@@ -39,14 +39,11 @@
 			#insert_table th  {
 				text-align: left;
 				margin: 0;
-				
 			}
 			
 			#insert_table input[type=text]  {
 				width: 180px;
-				
 			}
-		
 		</style>
 	</head>
 	<body>
@@ -71,8 +68,7 @@
 					<tbody> </tbody>
 				</table>
 			</article>
-			<article id="insert_table">
-				<h1>Input Book information</h1>
+			<article id="insert_table" title="Input Book Information" >
 				<table>
 					<thead>
 						<tr>
@@ -135,7 +131,9 @@
 				});
 				
 				$( "#main_table #input_frm_btn" ).bind( "click", function() {
-					$( "#insert_table" ).dialog();
+					$( "#insert_table" ).dialog( {
+						width: 350
+					});
 				});
 				
 				$( "#insert_table #add_btn" ).bind( "click", function() {

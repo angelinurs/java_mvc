@@ -15,6 +15,8 @@
 	Map<String, String> map = new Hashtable();
 	
 	Iterator it = request.getParameterNames().asIterator();
+	// ip 주소 받기
+	String ip = request.getRemoteAddr();
 	
 	while( it.hasNext() ) {
 		String name = String.valueOf( it.next() );
@@ -26,6 +28,7 @@
 	
 	SqlSession ss = FactoryService.getMemo_factory().openSession();
 	
+	// result 는 추가된 record 의 수
 	int result = ss.insert( "memo.insert", map );
 	
 	if( result > 0 ) {
