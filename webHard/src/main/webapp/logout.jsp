@@ -7,5 +7,8 @@
 	// or
 	// session.removeAttribute( "mvo" );
 	
-	response.sendRedirect("left.jsp");
+	// response.sendRedirect("left.jsp");
 %>
+<script>
+	parent.location.href = "index.jsp";
+</script>

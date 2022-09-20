@@ -2,6 +2,23 @@
 <%@page import="mybatis.vo.MemVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%!
+public int getUsed( File path ) {
+	
+	int size = 0;
+	for( File f : path.listFiles() ) {
+		if( f.isDirectory() ) {
+			size += getUsed( f );
+		} 
+		if( f.isFile() ) {
+			size += f.length();
+		}
+	}
+	
+	return size;
+}
+%>
 <!doctype html>
 <html>
 <head>
@@ -78,18 +95,41 @@
 <body>
 
 <%
-	Object obj = session.getAttribute( "mvo" );
+	int totalSize = 1024 * 1024 * 10;
+	int useSize = 0;
 
+	
+	// check login 
+	Object obj = session.getAttribute( "mvo" );
+	
 	if( obj != null ) {
 		MemVO mvo = (MemVO)obj;
 		
 		String dir = request.getParameter( "cPath" );
 		
+		String fname = request.getParameter( "f_name" );
+		String undeleted = request.getParameter( "undeleted" );
+		String notEmpty = request.getParameter( "notEmpty" );
+		
+		if( undeleted != null && notEmpty != null && notEmpty.equalsIgnoreCase( "true" ) ) {
+			%>
+			<script>
+				alert( '<%=undeleted %> is not Empty' );
+			</script>
+			<%
+		}
+		
 		if( dir == null ) {
 			dir = mvo.getM_id();
 		} else {
-			
+			if( fname != null && fname.trim().length() > 0 ) {
+				dir = dir + "/" + fname;
+			}
 		}
+		String path = application.getRealPath( "/members/" + mvo.getM_id() );
+		useSize = getUsed( new File( path) );
+		
+		session.setAttribute( "cPath", dir );
 %>
 	<h1>My Disk service</h1>
 	<hr/>
@@ -101,15 +141,15 @@
 		<tbody>
 			<tr>
 				<th class="title">전체용량</th>
-				<td>KB</td>
+				<td><%=totalSize/1024 %> KB</td>
 			</tr>
 			<tr>
 				<th class="title">사용량</th>
-				<td>KB</td>
+				<td><%=useSize/1024 %> KB</td>
 			</tr>
 			<tr>
 				<th class="title">남은용량</th>
-				<td>KB</td>
+				<td><%=(totalSize-useSize)/1024 %> KB</td>
 			</tr>
 		</tbody>
 	</table>
@@ -158,13 +198,15 @@
 			// 현재 위치( dir ) 값과 아이디가 다를때만 상위 이동 가능
 			
 			if( !dir.equals( mvo.getM_id() ) ) {
-				
+				// 상위 폴더의 경로를 얻어내기
+				int endIndex = dir.lastIndexOf( "/" );
+				String parentDir = dir.substring( 0, endIndex );
 		%>
 		
 			<tr>
 				<td>↑</td>
 				<td colspan="2">
-					<a href="javascript:goUp('')">
+					<a href="javascript:goUp('<%=parentDir%>')">
 						상위로...
 					</a>
 				</td>
@@ -195,17 +237,23 @@
 				<td>
 
 			<% if( f.isDirectory() ) { %>
-					<a href="javascript: gogo('')">
+					<a href="javascript: gogo('<%=f.getName() %>')">
 						<%=f.getName() %>
 					</a>
 
 			<% } else { %>
-					<a href="javascript:down('')">
+					<a href="javascript:down('<%=f.getName() %>')">
 						<%=f.getName() %>
 					</a>
 			<% } %>
 				</td>
-				<td></td>
+				<td>
+					<p class="btn">
+						<a href="javascript:deleteFile('<%=f.getName() %>')">
+							삭제하기
+						</a>
+					</p>
+				</td>
 			</tr>
 		<% } %>
 
@@ -214,13 +262,13 @@
 	
 	<form name="ff" method="post">
 		<input type="hidden" name="f_name"/>
-		<input type="hidden" name="cPath" value=""/>
+		<input type="hidden" name="cPath" value="<%=dir%>"/>
 	</form>
 	
 	
 	<div id="f_win">
 		<form action="makeFolder.jsp" method="post" name="frm">
-			<input type="hidden" name="cPath" value=""/>
+			<input type="hidden" name="cPath" value="<%=dir%>"/>
 			<label for="f_name">폴더명:</label>
 			<input type="text" id="f_name" name="f_name"/><br/>
 			<p class="btn">
@@ -263,5 +311,80 @@
 		parent.location.href = "../index.jsp";
 	</script>
 <% } %>
+	<script>
+	
+		function gogo( folderName ) {
+			document.ff.f_name.value = folderName;
+			
+			document.ff.action = "myDisk.jsp";
+			document.ff.submit();
+		}
+		
+		function goUp( folderName ) {
+			document.ff.cPath.value = folderName;
+			
+			document.ff.action = "myDisk.jsp";
+			document.ff.submit();
+		}
+		
+		function makeFolder()	{
+			document.getElementById( "f_win" ).style.display = "block";
+		}
+		
+		function closeWin()	{
+			document.getElementById( "f_win" ).style.display = "none";
+		}
+		
+		function newFolder()	{
+			let fname = document.frm.f_name.value.trim();
+			
+			if( fname.length < 1 ) {
+				alert( "Input folder name" );
+				document.frm.fname = "";
+				document.frm.fname.focus();
+				return;
+			}
+			document.frm.submit();
+		}
+		
+		function selectFile()	{
+			document.getElementById( "f_win2" ).style.display = "block";
+		}
+		function closeWin2()	{
+			document.getElementById( "f_win2" ).style.display = "none";
+		}
+		
+		function upload()	{
+			let select_fname = document.getElementById( "selectFile" ).value;
+			
+			if( select_fname.trim().length < 1 ) {
+				alert( "파일을 선택하세요." );
+				return;
+			}
+			
+			document.frm2.submit();
+		}
+		
+		function down( fname ) {
+			// 파일을 클릭했을 때, 다운로드를 위해 들어오는 곳
+			// 현재문서에 이름이 ff인 폼객체안에 있는 이름이 f_name 의 값을 
+			// 인자로 전달되어 온 파일이름으로 지정한다.
+			document.ff.f_name.value = fname;
+			
+			document.ff.action = "download.jsp";
+			document.ff.submit();
+			
+			// submit 을 하고 난후 파일명이 남아서 발생할수 있는 오류 제거
+			document.ff.f_name.value = ""; 
+		}
+		
+		function deleteFile( fname ) {
+			document.ff.f_name.value = fname;
+			
+			document.ff.action = "delete.jsp";
+			document.ff.submit();
+			document.ff.f_name.value = ""; 
+		}
+	</script>
 </body>
 </html>
