@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+body{
+	margin: 0;
+	padding: 0;
+}
+div#header{
+	height: 44px;
+	margin: 0;
+	background-color: #2e2e2e;
+}
+ul#nav{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font: 14px Sans-serif;
+	text-align: center;
+	line-height: 44px;
+}
+ul#nav>li{
+	display: inline;
+	margin-right: 40px;
+}
+ul#nav>li>a{
+	color: #eee;
+	text-decoration: none;
+}
+ul#nav>li>a:hover{
+	color: #e2e2e2;
+}
+#apple{
+	background-image: url(../images/icon_apple.svg);
+	width: 48px;
+	position: absolute;
+	top: 2px;
+	background-size: 16px 44px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	margin-left: -50px;
+	text-align: center;
+	z-index: 1;/* 보는 시각의 인덱스값 숫자가 높으면 높을 수록 앞에 있다. */
+}
