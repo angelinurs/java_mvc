@@ -12,3 +12,4 @@
 <%
 	int result  = MemDAO.registry( mvo );
 %>
+	<jsp:forward page="test_sign_in.jsp" />
