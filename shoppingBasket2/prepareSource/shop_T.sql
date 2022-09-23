@@ -26,3 +26,5 @@ values('ele002', 'vC-13',
 '사니PDP-TV','사니',9200,4750,'pds4.jpg','pds4_z.jpg',
 '질러~ 질러! 
 무조건 질러봐~ 후회 하지 않아~~',now());
+
+select * from shop_t;
