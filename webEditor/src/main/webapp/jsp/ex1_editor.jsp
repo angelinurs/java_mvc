@@ -117,13 +117,13 @@
 									</th>
 									<td>
 										<textarea rows="12" cols="50" id="content_1"
-											name="content_1"></textarea>
+											name="content"></textarea>
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2" style="text-align: right">
 										<p class="btn">
-											<a href="">보내기</a>
+											<a href="javascript:sendData()">보내기</a>
 										</p>
 									</td>
 								</tr>
@@ -203,10 +203,42 @@
 			}).done( function( res ){
 				// 이미지가 서버의 uoload_img 폴더에 저장 성공시
 				// 이미지 경로를 "img_url" 이라는 이름으로 res 에 json 으로 바인딩되어 넘어온다.
-				let image = $( "<img>" ).attr( "src", res.img_url );
-				$( "#content_1" ).summernote( "insertNode", image[0] );
 				
-			})
+				// Case 01.
+				// let image = $( "<img>" ).attr( "src", res.img_url );
+				// $( "#content_1" ).summernote( "insertNode", image[0] );
+				
+				$( "#content_1" ).summernote( "editor.insertImage", res.img_url );
+				
+			});
+		};
+		
+		function sendData()	{
+			let title = $( "#art_2 #title" ).val();
+			
+			if( title.trim().length < 1 ) {
+				alert( "제목을 입력하세요" );
+				$( "#art2 #title" ).val();
+				$( "#art2 #title" ).focus();
+				
+				return;
+			}
+			
+			/*
+			let part = $( "#art_2 #part option:selected" ).val();
+			let interests = $( "#art_2 input[name=interest]:checked" ).val();
+			let content = $( "#art_2 #content" ).val();
+			
+			let params = "title=" + encodeURIComponent( title ) +
+						"&part=" + encodeURIComponent( part ) +
+						"&interest=" + encodeURIComponent( interest ) +
+						"&content=" + encodeURIComponent( content );
+			*/
+			
+			// console.log( params );
+			document.frm.action="insert.jsp";
+			document.frm.submit();
+			
 		}
 	</script>
 	</body>
