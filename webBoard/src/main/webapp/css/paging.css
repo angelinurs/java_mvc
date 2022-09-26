@@ -16,6 +16,7 @@ table tfoot ol.paging li a {
     border:1px solid #00B3DC;
     color:#2f313e;
     font-weight:bold;
+	text-decoration: none;
 }
 
 table tfoot ol.paging li a:hover {

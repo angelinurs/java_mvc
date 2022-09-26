@@ -1,5 +1,7 @@
 package webBoard.vo;
 
+import java.util.List;
+
 public class BbsVO {
 	String b_idx;
 	String subject;
@@ -12,6 +14,8 @@ public class BbsVO {
 	String ip;
 	String hit;
 	String status;
+	// mybatis result map 활용
+	List<CommentVO> commentList;
 	
 	public String getB_idx() { return b_idx; }
 	public void setB_idx(String b_idx) { this.b_idx = b_idx; }
@@ -45,4 +49,7 @@ public class BbsVO {
 	
 	public String getStatus() { return status; }
 	public void setStatus(String status) { this.status = status; }
+	
+	public List<CommentVO> getCommentList() { return commentList; }
+	public void setCommentList(List<CommentVO> commentList) { this.commentList = commentList; }
 }

@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String cPage = request.getParameter( "cPage" );
+	
+	if( cPage == null ) 
+		cPage = "1";
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,7 +18,11 @@
 	</head>
 	<body>
 		<div id="bbs">
-			<form action="write_ok.jsp" method="post" >
+			<!-- 
+				enctype="multipart/form-data" 로 전송하게 되면,
+				요청받는 write_ok.jsp 에서 일반적인 request.getParameter(); 로 받을 수 없다. 
+			-->
+			<form action="write_ok.jsp" method="post" enctype="multipart/form-data" >
 				<table summary="게시판 글쓰기">
 					<caption>게시판 글쓰기</caption>
 					<colgroup>
@@ -20,6 +30,10 @@
 						<col width="*" />
 					</colgroup>
 					<tbody>
+						<tr>
+							<th>Date :</th>
+							<td><p>Today's date: <%= (new java.util.Date()).toLocaleString()%></p></td>
+						</tr>
 						<tr>
 							<th>제목:</th>
 							<td><input type="text" id="subject" name="subject" size="45"/></td>
@@ -33,12 +47,10 @@
 							<td><textarea id="content" name="content" cols="50" 
 									rows="8"></textarea></td>
 						</tr>
-		<!-- 
 						<tr>
 							<th>첨부파일:</th>
 							<td><input type="file" name="file"/></td>
 						</tr>
-		 -->
 		<!--
 						<tr>
 							<th>비밀번호:</th>
@@ -52,7 +64,7 @@
 								<input type="button" value="다시"
 									onclick="javascript:location.reload();" />
 								<input type="button" value="목록" 
-									onclick="javascript:location.href='list.jsp';"/>
+									onclick="javascript:backList();"/>
 							</td>
 						</tr>
 					</tbody>
@@ -122,9 +134,10 @@
 				
 			});
 		}
-
+		
 		function sendData(){
 			let title = $( "#subject" ).val();
+			let writer = $( "#writer" ).val();
 			
 			if( title.trim().length < 1 ) {
 				alert( "제목을 입력하세요" );
@@ -133,9 +146,21 @@
 				
 				return;
 			}
+			
+			if( writer.trim().length < 1 ) {
+				alert( "글쓴이를 입력하세요" );
+				$( "#writer" ).val();
+				$( "#writer" ).focus();
+				
+				return;
+			}
 	
 			document.forms[0].action = "write_ok.jsp";
 			document.forms[0].submit();
+		}
+		
+		function backList()	{
+			location.href = "list.jsp?cPage=<%=cPage %>";
 		}
 	
 	</script>

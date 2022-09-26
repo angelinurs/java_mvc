@@ -1,6 +1,8 @@
 package webBoard.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -8,16 +10,35 @@ import webBoard.Service.FactoryService;
 import webBoard.vo.BbsVO;
 
 public class BbsDAO {
-	public static BbsVO[] readAll() {
-		BbsVO[] voList = null;
+	
+	public static int getTotalCount() {
+		int count = 0;
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
-		List<BbsVO> list =  ss.selectList( "bbs.all" );
-		
+		count = ss.selectOne( "bbs.total_count");
 		ss.close();
 		
-		voList = new BbsVO[ list.size() ];
-		list.toArray( voList );
+		return count;
+	}
+	
+	public static BbsVO[] readAll( int from, int to ) {
+		
+		BbsVO[] voList = null;
+		
+		Map<String, String> map = new HashMap<>();
+		map.put( "from", String.valueOf( from ) );
+		map.put( "to", String.valueOf( to ) );
+
+		SqlSession ss = FactoryService.getFactory().openSession();
+		
+		List<BbsVO> list =  ss.selectList( "bbs.list", map );
+		
+		if( list != null && !list.isEmpty() ) {
+			voList = new BbsVO[ list.size() ];
+			list.toArray( voList );
+		}
+		
+		ss.close();
 		
 		return voList;
 	}

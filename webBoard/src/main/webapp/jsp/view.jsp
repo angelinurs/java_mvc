@@ -4,6 +4,14 @@
 <%@page import="webBoard.dao.BbsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	String cPage =  request.getParameter( "cPage" );
+	
+	if( cPage == null ) {
+		cPage = "1";
+	}
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -33,7 +41,7 @@
 						<tr>
 							<th>첨부파일:</th>
 							<td><a href="#">
-								파일명
+								<%=vo.getFile_name() %>
 							</a></td>
 						</tr>
 						
@@ -51,7 +59,7 @@
 								<input type="button" value="수정"/>
 								<input type="button" value="삭제"/>
 								<input type="button" value="목록"
-									 onclick="javascript:location.href='list.jsp';" />
+									 onclick="javascript:location.href='list.jsp?cPage=<%=cPage %>';" />
 							</td>
 						</tr>
 					</tbody>
@@ -79,5 +87,10 @@
 			
 			</div>
 	
+	<script>
+	function backList()	{
+		location.href="list.jsp?cPage=<%=cPage %>";
+	}
+	</script>
 	</body>
 </html>
