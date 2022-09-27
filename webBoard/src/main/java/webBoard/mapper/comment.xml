@@ -11,5 +11,10 @@
 		from  `employees`.`comment_t`
 		WHERE b_idx = #{no}
 	</select>
+	
+	<insert id="insert" parameterType="webBoard.vo.CommentVO" >
+		INSERT INTO comment_t( writer, content, write_date, ip, pwd, b_idx )
+		VALUES( #{writer}, #{content}, NOW(), #{ip}, #{pwd}, #{b_idx} )
+	</insert>
 
 </mapper>

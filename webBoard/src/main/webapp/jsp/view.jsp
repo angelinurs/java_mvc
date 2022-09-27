@@ -1,3 +1,4 @@
+<%@page import="webBoard.vo.CommentVO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="webBoard.vo.BbsVO"%>
@@ -26,8 +27,12 @@
 	request.setCharacterEncoding( "utf-8" );
 	String idx = request.getParameter( "idx" );
 	
+	// 게시글 조회
 	BbsVO vo =  BbsDAO.searchById( idx );
 	
+	// 게시글 조회수 증가
+	int hitCount = Integer.parseInt( vo.getHit() ) + 1;
+	int result = BbsDAO.updateHitCount( idx, String.valueOf( hitCount ) );	
 %>
 			<form method="post" >
 				<table summary="게시판 글보기">
@@ -37,14 +42,14 @@
 							<th>제목:</th>
 							<td><%=vo.getSubject() %></td>
 						</tr>
-		
+<% if( vo.getFile_name() != null ) { %>
 						<tr>
 							<th>첨부파일:</th>
-							<td><a href="#">
+							<td><a href="javascript:down( '<%=vo.getFile_name() %>' );">
 								<%=vo.getFile_name() %>
 							</a></td>
 						</tr>
-						
+<% } %>
 						<tr>
 							<th>이름:</th>
 							<td><%=vo.getWriter() %></td>
@@ -56,10 +61,12 @@
 						
 						<tr>
 							<td colspan="2">
-								<input type="button" value="수정"/>
-								<input type="button" value="삭제"/>
+								<input type="button" value="수정"
+									 onclick="javascript:backList( 'edit.jsp' )" />
+								<input type="button" value="삭제"
+									 onclick="javascript:del();" />
 								<input type="button" value="목록"
-									 onclick="javascript:location.href='list.jsp?cPage=<%=cPage %>';" />
+									 onclick="javascript:backList( 'list.jsp' )" />
 							</td>
 						</tr>
 					</tbody>
@@ -67,29 +74,65 @@
 			</form>
 			<form method="post" action="ans_write.jsp">
 				이름:<input type="text" name="writer"/><br/>
-				내용:<textarea rows="4" cols="55" name="comm"></textarea><br/>
+				내용:<textarea rows="4" cols="55" name="content"></textarea><br/>
 				비밀번호:<input type="password" name="pwd"/><br/>
 				
 				
-				<input type="hidden" name="b_idx" value="">
-				<input type="hidden" name="index" value=""/>
+				<input type="hidden" name="b_idx" value="<%=vo.getB_idx() %>">
+				<input type="hidden" name="cPage" value="<%=cPage%>"/>
 				<input type="submit" value="저장하기"/> 
 			</form>
 			
 			댓글들<hr/>
-			
+<%
+	List<CommentVO> commentList = vo.getCommentList();
+	for( CommentVO cvo : commentList ) {
+%>			
 				<div>
-					이름:글쓴이 &nbsp;&nbsp;
-					날짜:날짜<br/>
-					내용:댓글 내용
+					이름:<%=cvo.getWriter() %> &nbsp;&nbsp;
+					날짜:<%=cvo.getWrite_date() %><br/>
+					내용:<%=cvo.getContent() %>
 				</div>
+				<hr/>
+<%	} %>
 		
 			
 			</div>
+			<form name="frm" method="post">
+				<input type="hidden" name="cPage" value="<%=cPage %>"/>
+				<input type="hidden" name="idx" value="<%=idx %>"/>
+				<input type="hidden" name="f_name" />
+			</form>
 	
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" 
+			integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" 
+			crossorigin="anonymous">
+	</script>
 	<script>
-	function backList()	{
-		location.href="list.jsp?cPage=<%=cPage %>";
+	function backList( page )	{
+		// Case 01. get method.
+		// location.href="list.jsp?cPage=<%=cPage %>";
+		
+		// Case 02. post method
+		let frm = document.createElement("form");
+		frm.setAttribute("method", "POST");
+		frm.setAttribute("action", page + "?cPage=<%=cPage %>&idx=<%=vo.getB_idx() %>" );
+		document.body.appendChild( frm );
+		frm.submit();
+	}
+	
+	function down( fname ) {
+		document.frm.f_name.value = fname;
+		document.frm.action = "download.jsp";
+		document.frm.submit();
+	}
+	
+	function del() {
+		if( confirm( "Are you sure?" ) ) {
+			document.frm.action = "del.jsp";
+			document.frm.submit();
+			
+		}
 	}
 	</script>
 	</body>

@@ -8,6 +8,7 @@ public class CommentVO {
 	String write_date;
 	String ip;
 	String b_idx;
+	String cPage;
 	
 	public String getC_idx() { return c_idx; }
 	public void setC_idx(String c_idx) { this.c_idx = c_idx; }
@@ -29,4 +30,8 @@ public class CommentVO {
 	
 	public String getB_idx() { return b_idx; }
 	public void setB_idx(String b_idx) { this.b_idx = b_idx; }
+	
+	public String getcPage() { return cPage; }
+	public void setcPage(String cPage) { this.cPage = cPage; }
+	
 }

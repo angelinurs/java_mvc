@@ -91,6 +91,9 @@
 						<td style="text-align: left">
 							<a href="view.jsp?idx=<%=vo.getB_idx()%>&cPage=<%=cPage %>">
 							<%=vo.getSubject() %>
+							<%
+								out.print( ( vo.getCommentList() != null && vo.getCommentList().size() > 0 )? "(" + vo.getCommentList().size() + ")": "(0)" ); 
+							%>
 							</a>
 						</td>
 						<td><%=vo.getWriter() %></td>
