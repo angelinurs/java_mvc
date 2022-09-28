@@ -5,7 +5,9 @@ import java.sql.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DateAction {
+import properties_test.ToAction;
+
+public class DateAction implements ToAction {
 
 	public String execute( HttpServletRequest req, HttpServletResponse res ) {
 		

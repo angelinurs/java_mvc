@@ -3,7 +3,9 @@ package model.model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class HiAction {
+import properties_test.ToAction;
+
+public class HiAction implements ToAction {
 
 	public String execute( HttpServletRequest req, HttpServletResponse res ) {
 		req.setAttribute( "str", "Nice to meet you." );

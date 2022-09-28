@@ -12,6 +12,6 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="sign_inOut/mapper/member.xml"/>
+    <mapper resource="ex1/mapper/employees.xml"/>
   </mappers>
 </configuration>
