@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="employee">
+	
+	<select id="list" resultType="ex1.vo.EmpVO" parameterType="java.util.Map">
+		SELECT a.* 
+		FROM (
+			SELECT @RN:=@RN+1 AS rownum, e.*
+			FROM `employees`.`employees` e, ( SELECT @RN:=0 ) r
+			) a
+		WHERE rownum BETWEEN #{begin} AND #{end} 
+	</select>
+	
+	<select id="search" resultType="ex1.vo.EmpVO" parameterType="java.util.Map">
+		SELECT * 
+		FROM `employees`.`employees`
+		WHERE
+		<if test="no != null">
+			emp_no = #{no}
+		</if>
+		<if test="name != null">
+			first_name LIKE CONCAT( '%', #{name}, '%' ) 
+		</if>
+		<if test="from_date != null">
+			hire_date LIKE CONCAT( '%', #{from_date}, '%' )
+		</if>
+	</select>
+	
+	<insert id="insert" parameterType="ex1.vo.EmpVO" >
+		INSERT INTO `employees`.`employees`( emp_no, birth_date, first_name, last_name, gender, hire_date )
+		VALUES( #{emp_no}, #{birth_date}, #{first_name}, #{last_name}, #{gender}, #{hire_date} )
+	</insert>
+
+</mapper>
