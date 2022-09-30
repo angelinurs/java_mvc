@@ -1,3 +1,5 @@
+<%@page import="bbs.vo.CommentVO"%>
+<%@page import="java.util.List"%>
 <%@page import="bbs.vo.BbsVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,7 +11,7 @@
 		cPage = "1";
 	}
 
-	Object obj = request.getParameter( "vo" );
+	Object obj = request.getAttribute( "vo" );
 	
 	BbsVO vo = null;
 	if( obj != null ) {
@@ -79,7 +81,6 @@
 			</form>
 			
 			댓글들<hr/>
-<%--
 <%
 	List<CommentVO> commentList = vo.getCommentList();
 	for( CommentVO cvo : commentList ) {
@@ -92,7 +93,6 @@
 				<hr/>
 <%	} %>
 		
- --%>
 			
 			</div>
 			<form name="frm" method="post">
