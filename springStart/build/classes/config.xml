@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		DI ( Dependency Injection ) ::
+		:: 각 class 들 간의 의존성을 정의하는 것! 
+	 -->
+    <bean id="t1" class="ex1.vo.Test1">
+        <!-- collaborators and configuration for this bean go here -->
+        <property name="msg">
+        	<value>DI 연습입니다.</value>
+        </property>
+    </bean>
+    
+    <bean id="t2" class="ex1.vo.Test2">
+        <!-- collaborators and configuration for this bean go here -->
+        <!-- 
+        <property name="key">
+        	<value>안녕하세요.</value>
+        </property>
+        <property name="value">
+        	<value>로또 1등</value>
+        </property>
+         -->
+         
+         <property name="key" value="안녕하세요" />
+         <property name="value" value="로또 1등" />
+    </bean>
+    
+    <!-- setter injection --> 
+    <bean id="t3" class="ex1.vo.Test3">
+    	<property name="name" value="뽀로로" />
+    	<property name="age" value="21" />
+    </bean>
+     
+     <!-- 생성자 injection -->
+     <bean id="t4" class="ex1.vo.Test4">
+    	<constructor-arg >
+    		<value>트랜스포머</value>
+    	</constructor-arg>
+    	<constructor-arg value="17" />
+    </bean>
+    
+     <!-- 임의의 Object 이용한 injection -->
+     <bean id="t5" class="ex1.vo.Test5">
+     	<property name="tt" ref="t2" />
+    </bean>
+     
+     <bean id="t6" class="ex1.vo.Test6">
+     	<constructor-arg value="35" type="int" index="1"/>
+     	<constructor-arg ref="t3" />
+     </bean>
+
+</beans>

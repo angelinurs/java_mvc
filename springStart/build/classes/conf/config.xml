@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		DI ( Dependency Injection ) ::
+		:: 각 class 들 간의 의존성을 정의하는 것! 
+	 -->
+    <bean id="t1" class="ex1.vo.Test1">
+        <!-- collaborators and configuration for this bean go here -->
+        <property name="msg">
+        	<value>DI 연습입니다.</value>
+        </property>
+    </bean>
+
+</beans>
