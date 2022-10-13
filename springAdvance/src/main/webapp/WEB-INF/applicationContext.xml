@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	# spring_web 라이브러리를 연동하면서 
+	# 기존의 beansConfig 이름 applicationContext 로 변경해야함. 
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:conext="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+<!--
+	jdbc.properties 파일을 로드하기 위해 context 라는 네임스페이스와 스키마 객체가 필요하다.
+	그래서 위에서 필요한 만큼 beans 요소의 속성을 수정해야 한다. 
+ -->
+ 	<conext:property-placeholder location="classpath:jdbc.properties" />
+<!--
+	apache 의 dbcp 라이브러리가 제공하는 BasicDataSource 를 생성한다. 
+ -->
+ 	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+ 		<property name="driverClassName" value="${jdbc.driver}" />
+ 		<property name="url" value="${jdbc.url}" />
+ 		<property name="username" value="${jdbc.user}" />
+ 		<property name="password" value="${jdbc.pwd}" />
+ 		
+ 		<!--
+ 			동시에 사용할 수 있는 최대 커텍션 수 
+ 		 -->
+ 		<property name="maxActive" value="${jdbc.maxActive}" />
+ 		
+ 		<!--
+ 			커넥션 풀에 반납할 때 최대로 유지되는 커넥션의 수 
+ 		 -->
+ 		<property name="maxIdle" value="${jdbc.maxIdle}" />
+ 		
+ 		<!--
+ 			커넥션 풀에 반납할 때 최소로 유지되는 커넥션의 수
+ 		 -->
+ 		<property name="minIdle" value="${jdbc.minIdle}" />
+ 	</bean>
+ 	
+ 	<bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+ 		<!--
+ 			앞서 생성된 BasicDataSource 를 
+ 			현재 객체의 dataSource 라는 맴버변수에 저장해야 한다. 
+ 		 -->
+ 		 <property name="dataSource" ref="ds" />
+ 		 
+ 		 <!--
+ 		 	맴퍼 ( emp.xml ) 들의 위치 지정 
+ 		  -->
+ 		  <property name="mapperLocations" 
+ 		  			value="classpath:mybatis/mapper/*.xml" />
+ 	</bean>
+ 	
+ 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+ 		<constructor-arg ref="factory" />
+ 	</bean>
+ 	
+ 	<!--
+ 		필요한 DAO 들을 정의하면 된다. 
+ 	 -->
+<!--  	 
+ 	<bean id="empDAO" class="mybatis.dao.EmpDAO">
+ 		<property name="ss" ref="sqlSession" />
+ 	</bean>
+  -->	
+ 	<!-- 
+ 	<bean id="empDAO" class="mybatis.dao.EmpDAO" autowire="byName"/>
+ 	 -->
+ 	<bean id="empDAO" class="mybatis.dao.EmpDAO" autowire="byType"/>
+ 	<!-- ========================================================= -->
+ 	
+ 	
+ 	<conext:annotation-config  />
+ 	
+ 	<bean id="vo1" class="pm.vo.TestVO">
+ 		<property name="name" value="Beluga" />
+ 		<property name="email" value="Beluga@sea.earth" />
+ 	</bean>
+ 	
+ 	<bean id="vo2" class="pm.vo.TestVO">
+ 		<property name="name" value="Dolphin" />
+ 		<property name="email" value="Dolphin@sea.earth" />
+ 	</bean>
+ 	
+ 	<bean id="ta" class="pm.action.TestAction" />
+ 	
+</beans>
