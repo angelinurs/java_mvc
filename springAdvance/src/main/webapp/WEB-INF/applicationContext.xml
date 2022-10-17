@@ -2,9 +2,9 @@
 <!--
 	# spring_web 라이브러리를 연동하면서 
 	# 기존의 beansConfig 이름 applicationContext 로 변경해야함. 
- -->
+ --> 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:conext="http://www.springframework.org/schema/context"
+	xmlns:context="http://www.springframework.org/schema/context"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd 
@@ -14,7 +14,7 @@
 	jdbc.properties 파일을 로드하기 위해 context 라는 네임스페이스와 스키마 객체가 필요하다.
 	그래서 위에서 필요한 만큼 beans 요소의 속성을 수정해야 한다. 
  -->
- 	<conext:property-placeholder location="classpath:jdbc.properties" />
+ 	<context:property-placeholder location="classpath:jdbc.properties" />
 <!--
 	apache 의 dbcp 라이브러리가 제공하는 BasicDataSource 를 생성한다. 
  -->
@@ -51,7 +51,7 @@
  		 	맴퍼 ( emp.xml ) 들의 위치 지정 
  		  -->
  		  <property name="mapperLocations" 
- 		  			value="classpath:mybatis/mapper/*.xml" />
+ 		  			value="classpath:bbs/mapper/*.xml" />
  	</bean>
  	
  	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
@@ -69,22 +69,8 @@
  	<!-- 
  	<bean id="empDAO" class="mybatis.dao.EmpDAO" autowire="byName"/>
  	 -->
- 	<bean id="empDAO" class="mybatis.dao.EmpDAO" autowire="byType"/>
+ 	<context:annotation-config  />
+ 	<bean id="bbsDAO" class="bbs.dao.BBsDAO" />
  	<!-- ========================================================= -->
- 	
- 	
- 	<conext:annotation-config  />
- 	
- 	<bean id="vo1" class="pm.vo.TestVO">
- 		<property name="name" value="Beluga" />
- 		<property name="email" value="Beluga@sea.earth" />
- 	</bean>
- 	
- 	<bean id="vo2" class="pm.vo.TestVO">
- 		<property name="name" value="Dolphin" />
- 		<property name="email" value="Dolphin@sea.earth" />
- 	</bean>
- 	
- 	<bean id="ta" class="pm.action.TestAction" />
  	
 </beans>
